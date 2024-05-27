@@ -3,7 +3,7 @@ import logo from "../assets/logo.png";
 
 export const Navbar = () => {
   return (
-    <header className="w-full">
+    <header>
       <nav className="flex items-center justify-between h-20 bg-white border-b shadow-sm pr-10">
 				<div className="relative">
 					<img src={logo} className="overflow-hidden transition-all w-30 h-20" />

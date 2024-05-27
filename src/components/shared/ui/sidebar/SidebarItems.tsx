@@ -1,30 +1,31 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { SidebarContext } from "../../../Sidebar";
 
-interface SidebarItemProps {
-  icon: React.ReactNode;
-  text: string;
-  active?: boolean;
-  alert?: boolean;
-}
+type SidebarItemProps = {
+  item: { title: string; path: string; icon: JSX.Element };
+};
 
-export function SidebarItem({ icon, text, active, alert }: SidebarItemProps) {
+const SidebarItem = ({ item }: SidebarItemProps) => {
   const { expanded } = useContext(SidebarContext);
+  const location = useLocation();
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    setIsActive(location.pathname === item.path);
+  }, [location.pathname, item.path]);
+
   return (
-    <li className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${active ? "bg-gradient-to-tr from-green-200 to-green-100 text-green-800" : "hover:bg-green-50 text-gray-600"}`}>
-      {icon}
-      <span className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}`}>{text}</span>
-      {alert && (
-        <div className={`absolute right-2 w-2 h-2 rounded bg-green-400 ${expanded ? "" : "top-2"}`}>
-
-        </div>
-      )}
-
+    <Link to={item.path} className={`relative flex items-center py-2 px-3 my-1 font-medium rounded-md cursor-pointer transition-colors group ${isActive ? "bg-gradient-to-tr from-green-200 to-green-100 text-green-800" : "hover:bg-green-50 text-gray-600"}`}>
+      {item.icon}
+			<span className={`overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0 h-0"} ${expanded ? "text-gray-600" : "invisible opacity-0"}`}>{item.title}</span>
       {!expanded && (
         <div className={`absolute left-full rounded-md px-2 py-1 ml-6 bg-green-100 text-green-800 text-sm invisible opacity-20 -translate-x-3 transition-all group-hover:visible group-hover:opacity-100 group-hover:translate-x-0`}>
-          {text}
+          {item.title}
         </div>
       )}
-    </li>
+    </Link>
   );
-}
+};
+
+export default SidebarItem;
