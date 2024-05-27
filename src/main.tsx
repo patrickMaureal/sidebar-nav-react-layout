@@ -5,6 +5,7 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Dashboard } from './components/section/Dashboard.tsx'
 import { User } from './components/section/User.tsx'
+import { UserCreate } from './components/section/User/create.tsx'
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
 			{
 				path: "/users",
 				element: <User />
+			},
+			{
+				path:"/users/create",
+				element: <UserCreate />
 			}
 		],
 		
