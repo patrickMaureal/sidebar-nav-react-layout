@@ -1,4 +1,4 @@
-import { UserModel, columns } from "../../pages/user/columns";
+import { UserModel, getColumns } from "../../pages/user/columns";
 import { DataTable } from "../../pages/user/data-table";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -22,6 +22,7 @@ export default function User(props: UserProps) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+	//Create Function
 	const createUser = async () => {
 		try {
 			const newId = props.data.length > 0 ? props.data[props.data.length - 1].id + 1 : 1;
@@ -33,13 +34,21 @@ export default function User(props: UserProps) {
 					password,
 				}
 			);
-			console.log(response.data);
 			props.setData([...props.data, response.data]);
-			//clear input fields
 			setUsername("");
 			setPassword("");
 		} catch (error) {
 			console.error("Error creating user:", error);
+		}
+	};
+
+	//Delete Function
+	const deleteUser = async (id: number) => {
+		try {
+			await axios.delete(`https://fakerestapi.azurewebsites.net/api/v1/Users/${id}`);
+			props.setData(props.data.filter((user) => user.id !== id));
+		} catch (error) {
+			console.error("Error deleting user:", error);
 		}
 	};
 
@@ -113,12 +122,15 @@ export default function User(props: UserProps) {
       </div>
 
       <div className="container mx-auto mt-10">
-        <DataTable columns={columns} data={props.data} />
+				{/* Pass Data to DataTable and columns */}
+				<DataTable columns={getColumns(deleteUser)} data={props.data} />
       </div>
     </section>
   );
 }
 
+
+// get Data from API
 async function fetchData(): Promise<UserModel[]> {
   try {
     const response = await axios.get(
@@ -134,6 +146,7 @@ async function fetchData(): Promise<UserModel[]> {
 export function UserWithData() {
   const [data, setData] = useState<UserModel[]>([]);
 
+	// Refreshing State of Data from API
   useEffect(() => {
     fetchData().then(setData);
   }, []);
