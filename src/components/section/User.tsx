@@ -112,7 +112,7 @@ export default function User(props: UserProps) {
         </Dialog>
       </div>
 
-      <div className="container mx-auto mt-10 bg-white">
+      <div className="container mx-auto mt-10">
         <DataTable columns={columns} data={props.data} />
       </div>
     </section>
