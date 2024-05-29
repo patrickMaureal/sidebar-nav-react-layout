@@ -4,7 +4,7 @@ import App from './App.tsx'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Dashboard } from './components/section/Dashboard.tsx'
-import { User } from './components/section/User.tsx'
+import { UserWithData }  from '@/components/section/User.tsx'
 import { UserCreate } from './components/section/User/create.tsx'
 
 const router = createBrowserRouter([
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/users",
-				element: <User />
+				element: <UserWithData />
 			},
 			{
 				path:"/users/create",
