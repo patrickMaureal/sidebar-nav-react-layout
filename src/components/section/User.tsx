@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { Payment, columns } from "../../pages/user/columns";
+import { UserModel, columns } from "../../pages/user/columns";
 import { DataTable } from "../../pages/user/data-table"
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 interface UserProps {
-  data: Payment[]
+  data: UserModel[]
 }
 
 export default function User(props: UserProps) {
@@ -29,21 +30,19 @@ export default function User(props: UserProps) {
   );
 }
 
-async function fetchData(): Promise<Payment[]> {
+async function fetchData(): Promise<UserModel[]> {
   // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    // ...
-  ];
+	try {
+    const response = await axios.get("https://fakerestapi.azurewebsites.net/api/v1/Users");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return []; // Return empty array in case of an error
+  }
 }
 
 export function UserWithData() {
-  const [data, setData] = useState<Payment[]>([]);
+  const [data, setData] = useState<UserModel[]>([]);
 
   useEffect(() => {
     fetchData().then(setData);
