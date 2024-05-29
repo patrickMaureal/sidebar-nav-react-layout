@@ -17,7 +17,7 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogPortal, Di
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type UserModel = {
-  id: string
+  id: number
   userName: string
 	password: string
 }
@@ -62,7 +62,7 @@ export const columns: ColumnDef<UserModel>[] = [
 						<DropdownMenuContent align="end">
 							<DropdownMenuLabel>Actions</DropdownMenuLabel>
 							<DropdownMenuItem
-								onClick={() => navigator.clipboard.writeText(user.id)}
+								onClick={() => navigator.clipboard.writeText(user.id.toString())}
 							>
 								Copy user ID
 							</DropdownMenuItem>
