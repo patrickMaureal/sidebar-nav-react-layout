@@ -1,11 +1,20 @@
-import { Link } from "react-router-dom";
 import { UserModel, columns } from "../../pages/user/columns";
-import { DataTable } from "../../pages/user/data-table"
+import { DataTable } from "../../pages/user/data-table";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+	DialogFooter,
+} from "@/components/ui/dialog";
+import { DialogClose } from "@radix-ui/react-dialog";
 
 interface UserProps {
-  data: UserModel[]
+  data: UserModel[];
 }
 
 export default function User(props: UserProps) {
@@ -15,12 +24,43 @@ export default function User(props: UserProps) {
         Users Management
       </h1>
       <div className="flex flex-row items-center justify-between">
-        <Link
-          to={"/users/create"}
-          className={`p-4 rounded-lg bg-green-300 hover:bg-green-500`}
-        >
-          <span className="text-md font-semibold">Create User</span>
-        </Link>
+        <Dialog>
+          <DialogTrigger className="p-4 rounded-lg bg-green-500 hover:bg-green-700 font-bold text-white">Create User</DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Create User</DialogTitle>
+              <DialogDescription>
+                <form action="" className="w-80 mx-auto mt-8">
+									<div className="mb-4">
+										<label className="text-left block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
+											Username
+										</label>
+										<input
+											className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
+											id="username"
+											type="text"
+											placeholder="Username"
+										/>
+
+										<label className="text-left block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+											Password
+										</label>
+										<input
+											className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+											id="password"
+											type="text"
+											placeholder="Password"
+										/>
+									</div>
+								</form>
+              </DialogDescription>
+            </DialogHeader>
+						<DialogFooter>
+							<DialogClose className="p-4 rounded-lg bg-red-300 hover:bg-red-500">Cancel</DialogClose>
+							<DialogClose className="p-4 rounded-lg bg-green-300 hover:bg-green-500">Confirm</DialogClose>
+						</DialogFooter>
+          </DialogContent>
+        </Dialog>
       </div>
 
       <div className="container mx-auto mt-10 bg-white">
@@ -32,8 +72,10 @@ export default function User(props: UserProps) {
 
 async function fetchData(): Promise<UserModel[]> {
   // Fetch data from your API here.
-	try {
-    const response = await axios.get("https://fakerestapi.azurewebsites.net/api/v1/Users");
+  try {
+    const response = await axios.get(
+      "https://fakerestapi.azurewebsites.net/api/v1/Users"
+    );
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
