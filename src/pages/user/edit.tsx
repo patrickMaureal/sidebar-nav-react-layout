@@ -13,6 +13,7 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -66,6 +67,9 @@ export const EditUser = () => {
 									</FormItem>
 								)}
 							/>
+							<Link to={"/users"} className="inline-block text-red-700 mr-4">
+                Back
+              </Link>
               <Button type="submit" onClick={() => form.handleSubmit(onSubmit)}>Submit</Button>
             </form>
           </Form>
