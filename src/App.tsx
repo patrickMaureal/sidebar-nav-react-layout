@@ -10,7 +10,7 @@ function App() {
         <Sidebar />
         <div className="flex flex-col w-full">
           <Navbar />
-          <main className="h-full">
+          <main className="h-screen">
             <Outlet />
           </main>
         </div>
