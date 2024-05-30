@@ -8,6 +8,7 @@ import { UserWithData }  from '@/components/section/User.tsx'
 import { Login } from './components/layouts/Login.tsx'
 import { AdminLogin } from './components/layouts/AdminLogin.tsx'
 import { EditUser } from './pages/user/edit.tsx'
+import { CreateUser } from './pages/user/create.tsx'
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
         path: "/users",
         element: <UserWithData />
       },
+			{
+				path:"/users/create",
+				element: <CreateUser />
+			},
 			{
 				path:"/users/edit/:id",
 				element: <EditUser />

@@ -2,16 +2,8 @@ import { UserModel, getColumns } from "../../pages/user/columns";
 import { DataTable } from "../../pages/user/data-table";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogFooter,
-} from "@/components/ui/dialog";
-import { DialogClose } from "@radix-ui/react-dialog";
+import { Link } from "react-router-dom";
+import { Button } from "../ui/buttons";
 
 interface UserProps {
   data: UserModel[];
@@ -58,67 +50,11 @@ export default function User(props: UserProps) {
         Users Management
       </h1>
       <div className="flex flex-row items-center justify-between">
-        <Dialog>
-          <DialogTrigger className="p-4 rounded-lg bg-green-500 hover:bg-green-700 font-bold text-white">
-            Create User
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Create User</DialogTitle>
-              <DialogDescription>
-                <div>
-                  <form action="" className="w-80 mx-auto mt-8">
-                    <div className="mb-4">
-                      <label
-                        className="text-left block text-gray-700 text-sm font-bold mb-2"
-                        htmlFor="username"
-                      >
-                        Username
-                      </label>
-                      <input
-                        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
-                        id="username"
-                        type="text"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                      />
-
-                      <label
-                        className="text-left block text-gray-700 text-sm font-bold mb-2"
-                        htmlFor="password"
-                      >
-                        Password
-                      </label>
-                      <input
-                        className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="password"
-                        type="text"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                    </div>
-                  </form>
-                </div>
-              </DialogDescription>
-            </DialogHeader>
-            <DialogFooter>
-              <DialogClose
-                className="p-4 rounded-lg bg-red-300 hover:bg-red-500"
-                onClick={() => console.log("Cancel clicked")}
-              >
-                Cancel
-              </DialogClose>
-              <DialogClose
-                className="p-4 rounded-lg bg-green-300 hover:bg-green-500"
-                onClick={createUser}
-              >
-                Confirm
-              </DialogClose>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+        <Link to="/users/create">
+					<Button variant={"default"} className="mr-2">
+						Create User
+					</Button>
+				</Link>
       </div>
 
       <div className="container mx-auto mt-10">
