@@ -11,28 +11,28 @@ interface UserProps {
 }
 
 export default function User(props: UserProps) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  // const [username, setUsername] = useState("");
+  // const [password, setPassword] = useState("");
 
 	//Create Function
-	const createUser = async () => {
-		try {
-			const newId = props.data.length > 0 ? props.data[props.data.length - 1].id + 1 : 1;
-			const response = await axios.post(
-				"https://fakerestapi.azurewebsites.net/api/v1/Users",
-				{
-					id: newId,
-					username,
-					password,
-				}
-			);
-			props.setData([...props.data, response.data]);
-			setUsername("");
-			setPassword("");
-		} catch (error) {
-			console.error("Error creating user:", error);
-		}
-	};
+	// const createUser = async () => {
+	// 	try {
+	// 		const newId = props.data.length > 0 ? props.data[props.data.length - 1].id + 1 : 1;
+	// 		const response = await axios.post(
+	// 			"https://fakerestapi.azurewebsites.net/api/v1/Users",
+	// 			{
+	// 				id: newId,
+	// 				username,
+	// 				password,
+	// 			}
+	// 		);
+	// 		props.setData([...props.data, response.data]);
+	// 		setUsername("");
+	// 		setPassword("");
+	// 	} catch (error) {
+	// 		console.error("Error creating user:", error);
+	// 	}
+	// };
 
 	//Delete Function
 	const deleteUser = async (id: number) => {

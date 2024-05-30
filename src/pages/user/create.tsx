@@ -13,10 +13,11 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
-	password: z.string().min(2).max(50),
+  password: z.string().min(2).max(50),
 });
 
 export const CreateUser = () => {
@@ -24,7 +25,7 @@ export const CreateUser = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: "",
-			password: "",
+      password: "",
     },
   });
 
@@ -54,19 +55,24 @@ export const CreateUser = () => {
                   </FormItem>
                 )}
               />
-							<FormField
-								control={form.control}
-								name="password"
-								render={({ field }) => (
-									<FormItem>
-										<FormLabel>Password</FormLabel>
-										<FormControl>
-											<Input placeholder="*********" {...field} />
-										</FormControl>
-									</FormItem>
-								)}
-							/>
-              <Button type="submit" onClick={() => form.handleSubmit(onSubmit)}>Submit</Button>
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input placeholder="*********" {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+							<Link to={"/users"} className="inline-block text-red-700 mr-4">
+                Back
+              </Link>
+							<Button type="submit" onClick={() => form.handleSubmit(onSubmit)} >
+                Submit
+              </Button>
             </form>
           </Form>
         </div>
