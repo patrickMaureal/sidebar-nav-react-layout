@@ -5,9 +5,9 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { Dashboard } from './components/section/Dashboard.tsx'
 import { UserWithData }  from '@/components/section/User.tsx'
-import { UserCreate } from './components/section/User/create.tsx'
 import { Login } from './components/layouts/Login.tsx'
 import { AdminLogin } from './components/layouts/AdminLogin.tsx'
+import { EditUser } from './pages/user/edit.tsx'
 
 const router = createBrowserRouter([
   {
@@ -22,10 +22,10 @@ const router = createBrowserRouter([
         path: "/users",
         element: <UserWithData />
       },
-      {
-        path: "/users/create",
-        element: <UserCreate />
-      }
+			{
+				path:"/users/edit/:id",
+				element: <EditUser />
+			}
     ]
   },
   {

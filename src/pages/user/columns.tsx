@@ -1,15 +1,7 @@
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
 
 import { Button } from "@/components/ui/buttons";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   Dialog,
   DialogClose,
@@ -19,6 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Link } from "react-router-dom";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -34,7 +27,7 @@ export interface ColumnProps {
 }
 
 export function getColumns(
-	// add Props from passed function
+  // add Props from passed function
   deleteUser: ColumnProps["deleteUser"]
 ): ColumnDef<UserModel>[] {
   return [
@@ -66,50 +59,35 @@ export function getColumns(
         const user = row.original;
 
         return (
-          <Dialog>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="h-8 w-8 p-0">
-                  <span className="sr-only">Open menu</span>
-                  <MoreHorizontal className="h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                <DropdownMenuItem
-                  onClick={() =>
-                    navigator.clipboard.writeText(user.id.toString())
-                  }
-                >
-                  Copy user ID
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>View user details</DropdownMenuItem>
-                <DialogTrigger>
-                  <DropdownMenuItem>Delete User</DropdownMenuItem>
-                </DialogTrigger>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <DialogPortal>
-              <DialogContent>
-                <DialogTitle>
-                  Are you sure you want to delete this user?
-                </DialogTitle>
-                <DialogDescription>
-                  This action cannot be undone.
-                </DialogDescription>
-								{/* Execute deleteUser function from User onClick */}
-                <DialogClose asChild>
-                  <Button
-                    variant="destructive"
-                    onClick={() => deleteUser(user.id)}
-                  >
-                    Delete
-                  </Button>
-                </DialogClose>
-              </DialogContent>
-            </DialogPortal>
-          </Dialog>
+          <div className="flex w-10">
+						<Link to={"/users/edit/" + user.id}>
+							<Button variant="default" className="mr-2">Edit User</Button>
+						</Link>
+            <Dialog>
+              <DialogTrigger>
+                <Button variant="destructive">Delete User</Button>
+              </DialogTrigger>
+              <DialogPortal>
+                <DialogContent>
+                  <DialogTitle>
+                    Are you sure you want to delete this user?
+                  </DialogTitle>
+                  <DialogDescription>
+                    This action cannot be undone.
+                  </DialogDescription>
+                  {/* Execute deleteUser function from User onClick */}
+                  <DialogClose asChild>
+                    <Button
+                      variant="destructive"
+                      onClick={() => deleteUser(user.id)}
+                    >
+                      Delete
+                    </Button>
+                  </DialogClose>
+                </DialogContent>
+              </DialogPortal>
+            </Dialog>
+          </div>
         );
       },
     },
